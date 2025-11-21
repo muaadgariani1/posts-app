@@ -1,44 +1,20 @@
          
-        @extends('layout.app')
-@section('content') 
-         
-      
-    <div class="col-12">
-    
-        <h1 class="p-3  text-center mt-3">Edit  Post Info</h1>
-    </div>
-    <div class="col-8 mx-auto">
-    <form action="{{ url('posts/'.$post->id) }}" method="POST" class="form border p-3">
+@extends('layouts.app')
+
+@section('content')
+<div class="max-w-2xl mx-auto">
+    <h1 class="text-2xl sm:text-3xl font-semibold tracking-tight text-slate-900 mb-2">
+        Edit Post
+    </h1>
+    <p class="text-sm text-slate-600 mb-6">
+        Update your post details below.
+    </p>
+
+    <form action="{{ route('posts.update', $post) }}" method="POST"
+          class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
         @method('PUT')
         @csrf
- @if ($errors->any())
-<div class="alert alert-danger p-1">
-<ul>
-@foreach ($errors->all() as $error)
-<li>  {{ $error }}</li>
-@endforeach
-</ul>
+        @include('posts._form')
+    </form>
 </div>
-@endif
-<div class="mb-3">
-    <label for="">Post Title</label>
-<input type="text" value="{{ $post->title }}" class="form-control" name="title">
-</div>
-
-            <div class="mb-3">
-    <label for="">Post Description</label>
-<textarea class="form-control" name="description"  rows="7">{{ $post->description }}</textarea>
-        </div>
-                <div class="mb-3" style="display: none;">
-    <label for="">Writer</label>
-<select name="user_id" class="form-control">
-<option value="1">Mostafa</option>
-<option value="2">Ali</option>
-</select>
-</div>
-<div class="mb-3">
-    <label for="">Post Title</label>
-<input type="submit" class="form-control bg-success" value="Save">
-</div>
-         </form>
-           @endsection
+@endsection
